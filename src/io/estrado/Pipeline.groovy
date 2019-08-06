@@ -67,6 +67,12 @@ def helmTest(Map args) {
     sh "helm test ${args.name} --cleanup"
 }
 
+def helmPackage(Map args) {
+    println "Running Helm package"
+
+    sh "helm package ${args.chart_dir}"
+}
+
 def gitEnvVars() {
     // create git envvars
     println "Setting envvars to tag container"
