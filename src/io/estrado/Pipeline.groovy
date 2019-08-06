@@ -15,6 +15,13 @@ def helmLint(String chart_dir) {
 
 }
 
+def helmPackage(String chart_dir) {
+    // package helm chart
+    println "running helm package ${chart_dir}"
+    sh "helm package ${chart_dir}"
+
+}
+
 def helmConfig() {
     //setup helm connectivity to Kubernetes API and Tiller
     println "initiliazing helm client"
@@ -65,12 +72,6 @@ def helmTest(Map args) {
     println "Running Helm test"
 
     sh "helm test ${args.name} --cleanup"
-}
-
-def helmPackage(Map args) {
-    println "Running Helm package"
-
-    sh "helm package ${args.chart_dir}"
 }
 
 def gitEnvVars() {
