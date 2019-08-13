@@ -148,6 +148,18 @@ def containerPublish(Map args) {
     }
 }
 
+def azLogin(Map args) {
+    println "Logging into Azure CLI with provided service principal..."
+
+    sh "az login --service-principal -u ${args.repo} -p ${env.PASSWORD} --tenant ${env.TENANT_ID}"
+}
+
+def azHelmUpload(Map args) {
+    println "Uploading helm chart to ACR"
+    
+    sh "az acr helm push -n ${args.repo} *.tgz --force"
+}
+
 def getContainerTags(config, Map tags = [:]) {
 
     println "getting list of tags for container"
