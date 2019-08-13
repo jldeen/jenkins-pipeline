@@ -129,7 +129,9 @@ def containerBuild(Map args) {
 
         return img.id
 
-        env.IMAGE_ID = img.id
+        println "image.id ===> ${img.id}"
+
+        // env.IMAGE_ID = img.id
     }
 }
 
