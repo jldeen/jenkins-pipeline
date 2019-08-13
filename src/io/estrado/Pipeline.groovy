@@ -126,7 +126,7 @@ def containerBuild(Map args) {
 
         env.IMAGE_ID = "${args.host}/${args.acct}/${args.repo}:${args.buildTag}"
 
-        println "imageID is ${env.IMAGE_ID}"
+        println "env.IMAGE_ID ==> ${env.IMAGE_ID}"
     }
 }
 
