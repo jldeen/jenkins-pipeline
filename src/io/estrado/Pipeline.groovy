@@ -116,7 +116,7 @@ def gitEnvVars() {
 
 def containerBuild(Map args) {
 
-    println "Running Docker build/publish: ${args.host}/${args.acct}/${args.repo}:${args.tags}"
+    println "Running Docker build: ${args.host}/${args.acct}/${args.repo}:${args.tags}"
 
     docker.withRegistry("https://${args.host}", "${args.auth_id}") {
 
@@ -133,7 +133,7 @@ def containerBuild(Map args) {
 
 def containerPublish(Map args) {
 
-    println "Running Docker build/publish: ${args.host}/${args.acct}/${args.repo}:${args.tags}"
+    println "Running Docker publish: ${args.host}/${args.acct}/${args.repo}:${args.tags}"
 
     docker.withRegistry("https://${args.host}", "${args.auth_id}") {
 
@@ -145,6 +145,8 @@ def containerPublish(Map args) {
         }
 
         return img.id
+
+        env.IMAGE_ID = img.id
     }
 }
 
@@ -158,6 +160,13 @@ def azHelmUpload(Map args) {
     println "Uploading helm chart to ACR"
 
     sh "az acr helm push -n ${args.repo} *.tgz --force"
+}
+
+def aquaScan(Map args) {
+    println "Running local image scan"
+
+    sh "scan --user ${env.USERNAME} --password ${env.PASSWORD} --h
+ost ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
 }
 
 def getContainerTags(config, Map tags = [:]) {
