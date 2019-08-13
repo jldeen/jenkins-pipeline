@@ -124,7 +124,7 @@ def containerBuild(Map args) {
         def img = docker.image("${args.acct}/${args.repo}")
         sh "docker build --build-arg VCS_REF=${env.GIT_SHA} --build-arg BUILD_DATE=`date -u +'%Y-%m-%dT%H:%M:%SZ'` -t ${args.acct}/${args.repo} ${args.dockerfile}"
 
-        env.IMAGE_ID = "${args.host}/${args.acct}/${args.repo}:${args.tags}"
+        env.IMAGE_ID = "${args.host}/${args.acct}/${args.repo}:${args.buildTag}"
 
         println "imageID is ${env.IMAGE_ID}"
     }
