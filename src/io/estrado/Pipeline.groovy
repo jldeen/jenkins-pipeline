@@ -126,7 +126,7 @@ def containerBuild(Map args) {
 
         env.IMAGE_ID = "${args.host}/${args.acct}/${args.repo}:${args.buildTag}"
 
-        println "env.IMAGE_ID ==> ${env.IMAGE_ID}"
+        println "env.IMAGE_ID  ${env.IMAGE_ID}"
     }
 }
 
@@ -162,7 +162,7 @@ def azHelmUpload(Map args) {
 def aquaScan(Map args) {
     println "Running local image scan"
 
-    scan "sh --user "${env.USERNAME} --password ${env.PASSWORD} --host ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
+    sh "scan --user ${env.USERNAME} --password ${env.PASSWORD} --host ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
 }
 
 def getContainerTags(config, Map tags = [:]) {
