@@ -159,12 +159,6 @@ def azHelmUpload(Map args) {
     sh "az acr helm push -n ${args.repo} *.tgz --force"
 }
 
-def aquaScan(Map args) {
-    println "Running local image scan"
-
-    sh "scan --user ${env.USERNAME} --password ${env.PASSWORD} --host ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
-}
-
 def getContainerTags(config, Map tags = [:]) {
 
     println "getting list of tags for container"
