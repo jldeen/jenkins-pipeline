@@ -162,7 +162,7 @@ def azHelmUpload(Map args) {
 def aquaScan(Map args) {
     println "Running local image scan"
 
-    sh "scannercli scan --user ${env.USERNAME} --password ${env.PASSWORD} --host ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
+    sh "--user ${env.USERNAME} --password ${env.PASSWORD} --host ${args.server}  ${env.IMAGE_ID} --jsonfile /tmp/out.json --htmlfile /tmp/out.html"
 }
 
 def getContainerTags(config, Map tags = [:]) {
