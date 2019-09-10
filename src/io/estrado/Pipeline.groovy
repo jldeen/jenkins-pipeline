@@ -25,7 +25,9 @@ def helmPackage(String chart_dir) {
 def helmConfig() {
     //setup helm connectivity to Kubernetes API and Tiller
     println "initiliazing helm client"
-    sh "helm init --client-only"
+    // sh "helm init --client-only"
+    sh 'HELM_VERSION=$(helm version)'
+    sh 'if [[ "${HELM_VERSION}" == 2* ]]; then helm init --client-only; else echo "using helm3, no need to initialize helm"; fi'
     println "checking client/server version"
     sh "helm version"
 }
