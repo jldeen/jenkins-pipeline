@@ -26,8 +26,8 @@ def helmConfig() {
     //setup helm connectivity to Kubernetes API and Tiller
     println "initiliazing helm client"
     // sh "helm init --client-only"
-    sh 'HELM_VERSION=$(helm version)'
-    sh 'if [[ "${HELM_VERSION}" == 2* ]]; then helm init --client-only; else echo "using helm3, no need to initialize helm"; fi'
+    // sh 'HELM_VERSION=$(helm version)'
+    // sh 'if [[ "${HELM_VERSION}" == 2* ]]; then helm init --client-only; else echo "using helm3, no need to initialize helm"; fi'
     println "checking client/server version"
     sh "helm version"
 }
@@ -58,7 +58,7 @@ def helmDeploy(Map args) {
         println "Running deployment"
 
         sh "helm dependency update ${args.chart_dir}"
-        sh "helm upgrade --install ${args.name} ${args.chart_dir} " + (release_overrides ? "--set ${release_overrides}" : "") + " --namespace=${namespace}" + " --wait"
+        sh "helm upgrade --install ${args.name} ${args.chart_dir} " + (release_overrides ? "--set ${release_overrides}" : "") + "--kubeconfig string ${args.kubeconfig}" + " --namespace=${namespace}" + " --wait"
 
         echo "Application ${args.name} successfully deployed. Use helm status ${args.name} to check"
     }
@@ -141,6 +141,14 @@ def azHelmUpload(Map args) {
     println "Uploading helm chart to ACR"
 
     sh "az acr helm push -n ${args.repo} *.tgz --force"
+}
+
+def githubConfidence(Map args) {
+    println "Adding a dash of confidence to your process..."
+    
+    sh "-t ${env.GITHUB_TOKEN}"
+
+    // sh "docker run -i --rm -e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER} -e ${GITHUB_COMMENT}"
 }
 
 def getContainerTags(config, Map tags = [:]) {
