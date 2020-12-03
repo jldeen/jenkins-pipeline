@@ -144,18 +144,11 @@ def azHelmUpload(Map args) {
     sh "az acr helm push -n ${args.repo} *.tgz --force"
 }
 
-def githubConfidence(Map args) {
+def githubConfidence(config) {
     println "Adding a dash of confidence to your process..."
-    
-    // env.COMMENT_PREFIX = "You can see a private version of the changes made in this  pull request  here - http://"
 
-    docker.withRun(" -e GITHUB_TOKEN=${env.GITHUB_TOKEN} -e GITHUB_OWNER=${args.GITHUB_OWNER} -e GITHUB_REPO=${args.GITHUB_REPO} -e GITHUB_COMMENT_TYPE=${args.GITHUB_COMMENT_TYPE} -e GITHUB_PR_ISSUE_NUMBER=${args.GITHUB_PR_ISSUE_NUMBER}")
-    // sh "-t ${env.GITHUB_TOKEN}"
+    def comment = pullRequest.comment("You can see a private version of the changes made in this  pull request  here - http://${config.app.hostname}")
 
-    // docker.withRun("-t ${env.GITHUB_TOKEN} -owner ${args.GITHUB_OWNER} -repo ${args.GITHUB_REPO} -type ${args.GITHUB_COMMENT_TYPE} -number ${args.GITHUB_PR_ISSUE_NUMBER} -comment 'You can see a private version of the changes made in this  pull request  here - http://${env.PREVIEW_URL}'")
-
-    // ('-p 3000:3000', '--arg1 somearg --arg2 anotherarg')
-    // sh "docker run -i --rm -e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER} -e ${GITHUB_COMMENT}"
 }
 
 def getContainerTags(config, Map tags = [:]) {
