@@ -147,8 +147,14 @@ def azHelmUpload(Map args) {
 def githubConfidence(Map args) {
     println "Adding a dash of confidence to your process..."
     
-    sh "-t ${env.GITHUB_TOKEN}"
+    // env.COMMENT_PREFIX = "You can see a private version of the changes made in this  pull request  here - http://"
 
+    // commenter.withRun("-e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER}")
+    // sh "-t ${env.GITHUB_TOKEN}"
+
+    commenter.withRun("-t ${env.GITHUB_TOKEN} -owner ${args.GITHUB_OWNER} -repo ${args.GITHUB_REPO} -type ${args.GITHUB_COMMENT_TYPE} -number ${args.GITHUB.PR.ISSUE.Number}")
+
+    // ('-p 3000:3000', '--arg1 somearg --arg2 anotherarg')
     // sh "docker run -i --rm -e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER} -e ${GITHUB_COMMENT}"
 }
 
