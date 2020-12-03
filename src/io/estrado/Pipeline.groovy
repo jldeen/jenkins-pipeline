@@ -152,7 +152,7 @@ def githubConfidence(Map args) {
     // commenter.withRun("-e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER}")
     // sh "-t ${env.GITHUB_TOKEN}"
 
-    docker.withRun("-t ${env.GITHUB_TOKEN} -owner ${args.GITHUB_OWNER} -repo ${args.GITHUB_REPO} -type ${args.GITHUB_COMMENT_TYPE} -number ${args.GITHUB.PR.ISSUE.Number} -comment 'You can see a private version of the changes made in this  pull request  here - http://${env.PREVIEW_URL}'")
+    docker.withRun("-t ${env.GITHUB_TOKEN} -owner ${args.GITHUB_OWNER} -repo ${args.GITHUB_REPO} -type ${args.GITHUB_COMMENT_TYPE} -number ${args.GITHUB_PR_ISSUE_NUMBER} -comment 'You can see a private version of the changes made in this  pull request  here - http://${env.PREVIEW_URL}'")
 
     // ('-p 3000:3000', '--arg1 somearg --arg2 anotherarg')
     // sh "docker run -i --rm -e ${env.GITHUB_TOKEN} -e ${args.GITHUB_OWNER} -e ${args.GITHUB_REPO} -e ${args.GITHUB_COMMENT_TYPE} -e ${args.GITHUB_PR_ISSUE_NUMBER} -e ${GITHUB_COMMENT}"
