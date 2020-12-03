@@ -144,7 +144,7 @@ def azHelmUpload(Map args) {
     sh "az acr helm push -n ${args.repo} *.tgz --force"
 }
 
-def githubConfidence(config) {
+def githubConfidence(Map args) {
     println "Adding a dash of confidence to your process..."
 
     def comment = pullRequest.comment("You can see a private version of the changes made in this  pull request  here - http://${args.hostname}")
