@@ -149,7 +149,7 @@ def githubConfidence(Map args) {
     
     // env.COMMENT_PREFIX = "You can see a private version of the changes made in this  pull request  here - http://"
 
-    commenter.withRun(" -e GITHUB_TOKEN=${env.GITHUB_TOKEN} -e GITHUB_OWNER=${args.GITHUB_OWNER} -e GITHUB_REPO=${args.GITHUB_REPO} -e GITHUB_COMMENT_TYPE=${args.GITHUB_COMMENT_TYPE} -e GITHUB_PR_ISSUE_NUMBER=${args.GITHUB_PR_ISSUE_NUMBER}")
+    docker.withRun(" -e GITHUB_TOKEN=${env.GITHUB_TOKEN} -e GITHUB_OWNER=${args.GITHUB_OWNER} -e GITHUB_REPO=${args.GITHUB_REPO} -e GITHUB_COMMENT_TYPE=${args.GITHUB_COMMENT_TYPE} -e GITHUB_PR_ISSUE_NUMBER=${args.GITHUB_PR_ISSUE_NUMBER}")
     // sh "-t ${env.GITHUB_TOKEN}"
 
     // docker.withRun("-t ${env.GITHUB_TOKEN} -owner ${args.GITHUB_OWNER} -repo ${args.GITHUB_REPO} -type ${args.GITHUB_COMMENT_TYPE} -number ${args.GITHUB_PR_ISSUE_NUMBER} -comment 'You can see a private version of the changes made in this  pull request  here - http://${env.PREVIEW_URL}'")
