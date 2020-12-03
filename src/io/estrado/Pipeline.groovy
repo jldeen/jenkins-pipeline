@@ -147,7 +147,7 @@ def azHelmUpload(Map args) {
 def githubConfidence(config) {
     println "Adding a dash of confidence to your process..."
 
-    def comment = pullRequest.comment("You can see a private version of the changes made in this  pull request  here - http://${config.app.hostname}")
+    def comment = pullRequest.comment("You can see a private version of the changes made in this  pull request  here - http://${args.hostname}")
 
 }
 
